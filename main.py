@@ -9,7 +9,7 @@ import openai # type: ignore
 import os
 
 # Initialize OpenAI client
-client = openai.OpenAI(api_key="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")
+client = openai.OpenAI(api_key="" + os.getenv("OPENAI_API_KEY"))
 
 class Flashcard:
     def __init__(self, question, answer):
