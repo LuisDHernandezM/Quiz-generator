@@ -9,7 +9,7 @@ import openai # type: ignore
 import os
 
 # Initialize OpenAI client
-client = openai.OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+client = openai.OpenAI(api_key="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")
 
 class Flashcard:
     def __init__(self, question, answer):
@@ -25,10 +25,10 @@ def generate_flashcards(topic, num_cards=5):
 
     try:
         response = client.chat.completions.create(
-            model="gpt-4",
-            messages=[{"role": "user", "content": prompt}],
-            temperature=0.7
-        )
+        model="gpt-3.5-turbo",  # <- changed from gpt-4
+        messages=[{"role": "user", "content": prompt}],
+        temperature=0.7
+)
         text = response.choices[0].message.content.strip()
         for line in text.split("\n"):
             if "|" in line:
