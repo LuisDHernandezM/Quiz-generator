@@ -3,13 +3,9 @@
 # Luis Daniel Hernandez from CS210 class, group Copernicus
 # Lab 5: File Handling and Exceptions
 
-
-import random
-import openai # type: ignore
-import os
-
 # Initialize OpenAI client
-client = openai.OpenAI(api_key="" + os.getenv("OPENAI_API_KEY"))
+import random
+from gpt4all import GPT4All # type: ignore
 
 class Flashcard:
     def __init__(self, question, answer):
@@ -18,24 +14,22 @@ class Flashcard:
 
 def generate_flashcards(topic, num_cards=5):
     """
-    Use OpenAI API to generate a list of flashcards for a given topic.
+    Use GPT4All local model to generate flashcards.
     """
     flashcards = []
-    prompt = f"Generate {num_cards} simple Q&A flashcards on the topic '{topic}'. Format each flashcard as 'Question?|Answer'."
 
-    try:
-        response = client.chat.completions.create(
-        model="gpt-3.5-turbo",  # <- changed from gpt-4
-        messages=[{"role": "user", "content": prompt}],
-        temperature=0.7
-)
-        text = response.choices[0].message.content.strip()
-        for line in text.split("\n"):
-            if "|" in line:
-                q, a = line.split("|", 1)
-                flashcards.append(Flashcard(q.strip(), a.strip()))
-    except Exception as e:
-        print("Error generating flashcards:", e)
+    # Load GPT4All model (make sure you have downloaded the .bin file)
+    model = GPT4All("gpt4all-lora-quantized.bin")  # path to your local model
+
+    prompt = f"Generate {num_cards} simple Q&A flashcards about '{topic}'. Format each flashcard as 'Question?|Answer'."
+
+    response = model.generate(prompt)
+
+    for line in response.split("\n"):
+        if "|" in line:
+            q, a = line.split("|", 1)
+            flashcards.append(Flashcard(q.strip(), a.strip()))
+
     return flashcards
 
 def quiz_user(flashcards):
@@ -66,7 +60,7 @@ def quiz_user(flashcards):
     print(f"\nYour final score: {score}/{len(flashcards)}")
 
 def main():
-    print("=== AI Flashcard Quiz App ===")
+    print("=== GPT4All Flashcard Quiz App ===")
     topic = input("Enter a topic for the flashcards (e.g., 'Python programming'): ").strip()
     num = input("How many flashcards do you want? (default 5): ").strip()
     num = int(num) if num.isdigit() else 5
@@ -76,3 +70,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

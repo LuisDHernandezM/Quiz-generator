@@ -1,3 +1,14 @@
 What is the capital of France?|Paris
-What is 2+2?|4
+What is 2 + 2?|4
 Who wrote Hamlet?|Shakespeare
+What gas do plants breathe in that humans exhale?|Carbon dioxide
+What is the largest planet in our solar system?|Jupiter
+What is the chemical symbol for water?|H2O
+Who painted the Mona Lisa?|Leonardo da Vinci
+What programming language is known for using indentation instead of braces?|Python
+What is the square root of 81?|9
+How many continents are on Earth?|7
+Which ocean is the largest?|Pacific Ocean
+What year did World War II end?|1945
+What is the fastest land animal?|Cheetah
+What is the process by which plants make food using sunlight?|Photosynthesis
