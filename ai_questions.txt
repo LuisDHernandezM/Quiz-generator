@@ -1,2 +1,5 @@
-What does a planet orbit?|a star
-How many planets are in our solar system?|eight
+What is the basic unit of matter?|atom
+What is H2O?|water
+What combines to form molecules?|atoms
+What is the center of an atom called?|nucleus
+What is the process of burning?|combustion

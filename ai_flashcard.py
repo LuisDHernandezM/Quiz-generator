@@ -7,6 +7,7 @@
 import random
 import os
 from google import genai
+from rapidfuzz import fuzz   # type: ignore
 
 
 class Flashcard:
@@ -75,7 +76,7 @@ def quiz_user(flashcards):
         while guesses < 3 and not correct:
             user_answer = input(f"Your answer (guess {guesses+1}/3): ").strip()
             guesses += 1
-            if user_answer.lower() == card.answer.lower():
+            if is_semantically_close(user_answer, card.answer):
                 print("✅ Correct!\n")
                 score += 1
                 correct = True
@@ -86,6 +87,7 @@ def quiz_user(flashcards):
 
     print(f"\nYour final score: {score}/{len(flashcards)}")
 
+
 def save_flashcards_to_file(flashcards, filename="ai_questions.txt"):
     try:
         with open(filename, "w") as file:
@@ -94,6 +96,12 @@ def save_flashcards_to_file(flashcards, filename="ai_questions.txt"):
         print(f"\nAI-generated flashcards saved to '{filename}'")
     except Exception as e:
         print(f"Error saving file: {e}")
+
+
+def is_semantically_close(user_answer, correct_answer, threshold=70):
+    similarity = fuzz.ratio(user_answer.lower(), correct_answer.lower())
+    return similarity >= threshold
+
 
 def main():
     print("=== Gemini AI Flashcard Quiz App ===")
