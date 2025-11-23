@@ -5,25 +5,29 @@
 
 # Initialize OpenAI client
 import random
-from gpt4all import GPT4All # type: ignore
+from google import genai
+
 
 class Flashcard:
     def __init__(self, question, answer):
         self.question = question
         self.answer = answer
 
+
 def generate_flashcards(topic, num_cards=5):
     """
-    Use GPT4All local model to generate flashcards.
+    Use Gemini to generate flashcards.
     """
     flashcards = []
 
-    # Load GPT4All model (make sure you have downloaded the .bin file)
-    model = GPT4All("gpt4all-lora-quantized.bin")  # path to your local model
+    client = genai.Client()
 
     prompt = f"Generate {num_cards} simple Q&A flashcards about '{topic}'. Format each flashcard as 'Question?|Answer'."
 
-    response = model.generate(prompt)
+    response = client.models.generate_content(
+        model="gemini-2.5-flash", 
+        contents=prompt,
+        )
 
     for line in response.split("\n"):
         if "|" in line:
@@ -31,6 +35,7 @@ def generate_flashcards(topic, num_cards=5):
             flashcards.append(Flashcard(q.strip(), a.strip()))
 
     return flashcards
+
 
 def quiz_user(flashcards):
     if not flashcards:
@@ -59,14 +64,16 @@ def quiz_user(flashcards):
 
     print(f"\nYour final score: {score}/{len(flashcards)}")
 
+
 def main():
-    print("=== GPT4All Flashcard Quiz App ===")
+    print("=== Gemini AI Flashcard Quiz App ===")
     topic = input("Enter a topic for the flashcards (e.g., 'Python programming'): ").strip()
     num = input("How many flashcards do you want? (default 5): ").strip()
     num = int(num) if num.isdigit() else 5
 
     flashcards = generate_flashcards(topic, num)
     quiz_user(flashcards)
+
 
 if __name__ == "__main__":
     main()
