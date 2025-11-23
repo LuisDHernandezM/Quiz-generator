@@ -30,8 +30,8 @@ def generate_flashcards(topic, num_cards=5):
         "Each flashcard MUST follow this format exactly: Question?|Answer\n"
         "- The answer MUST be 1 to 3 words only.\n"
         "- The answer MUST NOT contain punctuation of any kind.\n"
-        "- The answer MUST be simple and easy to guess.\n"
-        "- The question should be clear and short.\n"
+        "- The answer can be simple and easy to guess.\n"
+        "- The question should be clear.\n"
         "- Do NOT number the flashcards.\n"
         "Output exactly one flashcard per line."
         )

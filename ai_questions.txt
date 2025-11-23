@@ -1,5 +1,7 @@
-What is the basic unit of matter?|atom
-What is H2O?|water
-What combines to form molecules?|atoms
-What is the center of an atom called?|nucleus
-What is the process of burning?|combustion
+What is our home planet?|earth
+What is Earth often called from space?|blue planet
+How many planets from the Sun is Earth?|third planet
+What covers most of Earth's surface?|water
+What unique feature does Earth possess?|life
+What celestial body does Earth orbit?|sun
+What gas layer surrounds Earth?|atmosphere
