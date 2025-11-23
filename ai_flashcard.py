@@ -5,6 +5,7 @@
 
 # Initialize OpenAI client
 import random
+import os
 from google import genai
 
 
@@ -20,7 +21,7 @@ def generate_flashcards(topic, num_cards=5):
     """
     flashcards = []
 
-    client = genai.Client()
+    client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 
     prompt = f"Generate {num_cards} simple Q&A flashcards about '{topic}'. Format each flashcard as 'Question?|Answer'."
 
@@ -29,7 +30,9 @@ def generate_flashcards(topic, num_cards=5):
         contents=prompt,
         )
 
-    for line in response.split("\n"):
+    text = response.text
+
+    for line in text.split("\n"):
         if "|" in line:
             q, a = line.split("|", 1)
             flashcards.append(Flashcard(q.strip(), a.strip()))
