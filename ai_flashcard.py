@@ -23,8 +23,18 @@ def generate_flashcards(topic, num_cards=5):
 
     client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 
-    prompt = f"Generate {num_cards} simple Q&A flashcards about '{topic}'. Format each flashcard as 'Question?|Answer'."
-
+    # Prompt Gemini to create flashcards, important to be specific
+    prompt = (
+        f"Generate {num_cards} flashcards about '{topic}'. "
+        "Each flashcard MUST follow this format exactly: Question?|Answer\n"
+        "- The answer MUST be 1 to 3 words only.\n"
+        "- The answer MUST NOT contain punctuation of any kind.\n"
+        "- The answer MUST be simple and easy to guess.\n"
+        "- The question should be clear and short.\n"
+        "- Do NOT number the flashcards.\n"
+        "Output exactly one flashcard per line."
+        )
+    
     response = client.models.generate_content(
         model="gemini-2.5-flash", 
         contents=prompt,
@@ -35,6 +45,14 @@ def generate_flashcards(topic, num_cards=5):
     for line in text.split("\n"):
         if "|" in line:
             q, a = line.split("|", 1)
+            
+            # Guarantee cleanup even if model slips
+            q = q.strip()
+            a = a.strip()
+            a = a.replace(".", "").replace(",", "").replace("!", "").replace("?", "")
+            # Limit answer to max 3 words
+            a = " ".join(a.split()[:3])
+
             flashcards.append(Flashcard(q.strip(), a.strip()))
 
     return flashcards

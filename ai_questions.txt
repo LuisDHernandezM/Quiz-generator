@@ -1,5 +1,5 @@
-1.  What is Python?|A high-level, interpreted, general-purpose programming language.
-2.  How do you print text to the console in Python?|Using the `print()` function, e.g., `print("Hello!")`.
-3.  What is a variable in Python?|A named storage location for data that can change during program execution.
-4.  How do you define a function in Python?|Using the `def` keyword, followed by the function name and parentheses, e.g., `def my_function():`.
-5.  What is the purpose of an 'if' statement in Python?|To execute a block of code only if a specified condition is true.
+What type of language is Python?|Programming language
+Who created Python?|Guido van Rossum
+What keyword defines a function?|def
+What is a Python file extension?|py
+How do you display output?|print
