@@ -45,13 +45,14 @@ def generate_flashcards(topic, num_cards=5):
     for line in text.split("\n"):
         if "|" in line:
             q, a = line.split("|", 1)
-            
+
             # Guarantee cleanup even if model slips
             q = q.strip()
             a = a.strip()
             a = a.replace(".", "").replace(",", "").replace("!", "").replace("?", "")
             # Limit answer to max 3 words
             a = " ".join(a.split()[:3])
+            a = a.lower()
 
             flashcards.append(Flashcard(q.strip(), a.strip()))
 
